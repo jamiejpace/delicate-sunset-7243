@@ -22,7 +22,7 @@ RSpec.describe 'airline show page' do
 
   it 'lists the names of all unique, adult passengers for flights on given airline' do
     visit airline_path(@airline1)
-    save_and_open_page
+    
     expect(page).to have_content(@airline1.name)
     expect(page).to_not have_content(@airline2.name)
     expect(page).to have_content(@passenger1.name, count: 1)

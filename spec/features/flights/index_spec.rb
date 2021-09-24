@@ -15,6 +15,7 @@ RSpec.describe 'flights index page' do
     Ticket.create!(flight_id: @flight2.id, passenger_id: @passenger2.id)
     Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger3.id)
     Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger4.id)
+    Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger1.id)
   end
 
   it 'lists all flight numbers, their airline, and the names of all passengers' do
@@ -26,32 +27,31 @@ RSpec.describe 'flights index page' do
     expect(page).to have_content(@airline1.name)
     expect(page).to have_content(@airline2.name)
 
-    within("#passenger-#{@passenger1.id}") do
+    within("#flights-#{@flight1.id}") do
       expect(page).to have_content(@passenger1.name)
     end
 
-    within("#passenger-#{@passenger2.id}") do
+    within("#flights-#{@flight2.id}") do
       expect(page).to have_content(@passenger2.name)
     end
 
-    within("#passenger-#{@passenger3.id}") do
+    within("#flights-#{@flight3.id}") do
       expect(page).to have_content(@passenger3.name)
-    end
-
-    within("#passenger-#{@passenger4.id}") do
       expect(page).to have_content(@passenger4.name)
+      expect(page).to have_content(@passenger1.name)
     end
   end
 
   it 'has a link next to each passengers name to remove that passenger from that flight' do
     visit flights_path
 
-    within("#passenger-#{@passenger1.id}") do
+    within("#flights-#{@flight3.id}") do
       expect(page).to have_content(@passenger1.name)
-      click_link "Remove Passenger"
-    end
 
-    expect(current_path).to eq(flights_path)
-    expect(page).to_not have_content(@passenger1.name)
+      click_link "Remove #{@passenger1.name}"
+
+      expect(current_path).to eq(flights_path)
+      expect(page).to_not have_content(@passenger1.name)
+    end
   end
 end
