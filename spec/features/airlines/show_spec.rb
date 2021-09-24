@@ -16,6 +16,8 @@ RSpec.describe 'airline show page' do
     Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger3.id)
     Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger4.id)
     Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger1.id)
+    Ticket.create!(flight_id: @flight2.id, passenger_id: @passenger1.id)
+    Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger3.id)
   end
 
   it 'lists the names of all unique, adult passengers for flights on given airline' do
@@ -27,5 +29,12 @@ RSpec.describe 'airline show page' do
     expect(page).to have_content(@passenger3.name)
     expect(page).to have_content(@passenger2.name)
     expect(page).to_not have_content(@passenger4)
+  end
+
+  it 'orders passengers by number of flights they have taken on airline' do
+    visit airline_path(@airline1)
+
+    expect(@passenger1.name).to appear_before(@passenger3.name)
+    expect(@passenger3.name).to appear_before(@passenger2.name)
   end
 end

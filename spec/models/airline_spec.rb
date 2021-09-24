@@ -7,7 +7,7 @@ RSpec.describe Airline do
   end
 
   describe 'instance methods' do
-    describe '.unique_adult_passengers' do
+    describe '.unique_adult_frequent_flyers' do
       before :each do
         @airline1 = Airline.create!(name: "Frontier")
         @flight1 = @airline1.flights.create!(number: "1727", date: "08/03/20", departure_city: "Denver", arrival_city: "Reno")
@@ -24,8 +24,8 @@ RSpec.describe Airline do
         Ticket.create!(flight_id: @flight3.id, passenger_id: @passenger1.id)
       end
 
-      it 'returns all unique passengers for airline 18 or older' do
-        expect(@airline1.unique_adult_passengers).to eq([@passenger1, @passenger2, @passenger3])
+      it 'returns all unique passengers for airline 18 or older sorted by most to least flights' do
+        expect(@airline1.unique_adult_frequent_flyers).to eq([@passenger1, @passenger3, @passenger2])
       end
     end
   end
