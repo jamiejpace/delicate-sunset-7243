@@ -19,16 +19,28 @@ RSpec.describe 'flights index page' do
 
   it 'lists all flight numbers, their airline, and the names of all passengers' do
     visit flights_path
-    save_and_open_page
+
     expect(page).to have_content(@flight1.number)
     expect(page).to have_content(@flight2.number)
     expect(page).to have_content(@flight3.number)
     expect(page).to have_content(@airline1.name)
     expect(page).to have_content(@airline2.name)
-    expect(page).to have_content(@passenger1.name)
-    expect(page).to have_content(@passenger2.name)
-    expect(page).to have_content(@passenger3.name)
-    expect(page).to have_content(@passenger4.name)
+
+    within("#passenger-#{@passenger1.id}") do
+      expect(page).to have_content(@passenger1.name)
+    end
+
+    within("#passenger-#{@passenger2.id}") do
+      expect(page).to have_content(@passenger2.name)
+    end
+
+    within("#passenger-#{@passenger3.id}") do
+      expect(page).to have_content(@passenger3.name)
+    end
+
+    within("#passenger-#{@passenger4.id}") do
+      expect(page).to have_content(@passenger4.name)
+    end
   end
 
   it 'has a link next to each passengers name to remove that passenger from that flight' do
@@ -38,7 +50,7 @@ RSpec.describe 'flights index page' do
       expect(page).to have_content(@passenger1.name)
       click_link "Remove Passenger"
     end
-    
+
     expect(current_path).to eq(flights_path)
     expect(page).to_not have_content(@passenger1.name)
   end

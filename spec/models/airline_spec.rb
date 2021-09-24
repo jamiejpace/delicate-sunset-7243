@@ -25,7 +25,8 @@ RSpec.describe Airline do
       end
 
       it 'returns all unique passengers for airline 18 or older sorted by most to least flights' do
-        expect(@airline1.unique_adult_frequent_flyers).to eq([@passenger1, @passenger3, @passenger2])
+        expect(@airline1.unique_adult_frequent_flyers.first.name).to eq(@passenger1.name)
+        expect(@airline1.unique_adult_frequent_flyers.last.name).to eq(@passenger2.name)
       end
     end
   end
