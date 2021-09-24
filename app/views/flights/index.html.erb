@@ -4,8 +4,8 @@
   <%= flight.airline.name %></p>
   <p>Passengers: <% flight.passengers.each do |passenger| %></p>
   <section id="passenger-<%= passenger.id %>">
-      <p><%= passenger.name %>
-      <%= link_to "Remove Passenger", ticket_path(flight.id, passenger_id: passenger.id), method: :delete %></p>
+    <p><%= passenger.name %>-
+    <%= link_to "Remove Passenger", ticket_path(flight.id, passenger_id: passenger.id), method: :delete %></p>
   <% end %>
   </section>
 <% end %>
