@@ -1,5 +1,5 @@
 class Airline < ApplicationRecord
-  has_many :flights
+  has_many :flights, dependent: :destroy
   has_many :passengers, through: :flights
 
   def unique_adult_frequent_flyers
