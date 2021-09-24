@@ -19,7 +19,7 @@ RSpec.describe 'flights index page' do
 
   it 'lists all flight numbers, their airline, and the names of all passengers' do
     visit flights_path
-
+    save_and_open_page
     expect(page).to have_content(@flight1.number)
     expect(page).to have_content(@flight2.number)
     expect(page).to have_content(@flight3.number)
